@@ -25,7 +25,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -98,19 +99,32 @@ label {
 }
 
 select,
-input {
+input,
+textarea {
   width: 100%;
-  min-height: 46px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: #fbfcfa;
   color: var(--ink);
-  padding: 0 13px;
   outline: none;
 }
 
+select,
+input {
+  min-height: 46px;
+  padding: 0 13px;
+}
+
+textarea {
+  min-height: 164px;
+  resize: vertical;
+  padding: 12px 13px;
+  line-height: 1.5;
+}
+
 select:focus,
-input:focus {
+input:focus,
+textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(31, 122, 109, 0.16);
 }
@@ -129,8 +143,22 @@ button {
   gap: 8px;
 }
 
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.secondary-button {
+  background: #26312e;
+}
+
 button:hover {
   background: var(--accent-dark);
+}
+
+.secondary-button:hover {
+  background: #121816;
 }
 
 button:disabled {
@@ -146,6 +174,7 @@ button:disabled {
 .result-panel {
   min-height: 560px;
   padding: 24px;
+  overflow: hidden;
 }
 
 .result-panel.empty {
@@ -172,102 +201,91 @@ button:disabled {
   font-weight: 900;
 }
 
-.product-card {
-  display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
-  gap: 26px;
-  height: 100%;
-}
-
-.image-frame {
-  min-height: 320px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fafafa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.image-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 14px;
-}
-
-.product-detail {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.meta-row {
+.table-header {
   display: flex;
   justify-content: space-between;
-  gap: 14px;
-  color: var(--muted);
-  font-size: 13px;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 16px;
 }
 
-.meta-row a {
+.table-header h2 {
+  margin-bottom: 4px;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.table-header p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.table-scroll {
+  width: 100%;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  min-width: 1280px;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  padding: 10px;
+  vertical-align: top;
+  text-align: left;
+  font-size: 16px;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #eef2ed;
+  color: #2a3431;
+  font-size: 13px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+td {
+  font-size: 13px;
+  line-height: 1.45;
+  max-width: 280px;
+}
+
+td a {
   color: var(--accent);
   font-weight: 700;
   text-decoration: none;
 }
 
-h2 {
-  margin-bottom: 0;
-  font-size: 25px;
-  line-height: 1.25;
-  letter-spacing: 0;
+.failed-row {
+  background: #fff7ed;
 }
 
-.stats {
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+.thumb {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  display: block;
+  background: #fafafa;
 }
 
-.stats div {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 14px;
-  background: #fbfcfa;
-}
-
-dt {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-dd {
-  margin: 6px 0 0;
-  font-size: 24px;
-  font-weight: 850;
-}
-
-.bullets-wrap {
-  border-top: 1px solid var(--line);
-  padding-top: 18px;
-}
-
-h3 {
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-ol {
-  margin: 0;
-  padding-left: 22px;
-  display: grid;
-  gap: 10px;
-  color: #313b38;
+td:nth-child(1),
+td:nth-child(2),
+td:nth-child(4),
+td:nth-child(5),
+td:nth-child(11),
+td:nth-child(12) {
+  white-space: nowrap;
 }
 
 .message {
@@ -309,7 +327,7 @@ ol {
   }
 
   .workspace,
-  .product-card {
+  .actions {
     grid-template-columns: 1fr;
   }
 
@@ -321,8 +339,8 @@ ol {
     min-height: 360px;
   }
 
-  .image-frame {
-    min-height: 260px;
+  table {
+    min-width: 1120px;
   }
 }
 
@@ -332,11 +350,4 @@ ol {
     padding: 18px;
   }
 
-  .stats {
-    grid-template-columns: 1fr;
-  }
-
-  .meta-row {
-    flex-direction: column;
-  }
 }

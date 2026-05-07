@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Amazon 产品信息抓取</title>
+    <title>Amazon 产品信息批量抓取</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
@@ -12,7 +12,7 @@
         <div class="query-panel">
           <div>
             <p class="eyebrow">Amazon Product Fetcher</p>
-            <h1>输入国家和 ASIN，抓取产品核心信息</h1>
+            <h1>批量输入 ASIN，生成产品对比表</h1>
           </div>
 
           <form id="scrape-form" class="form-grid">
@@ -42,14 +42,20 @@
             </label>
 
             <label>
-              <span>ASIN</span>
-              <input id="asin" name="asin" type="text" inputmode="latin" maxlength="10" placeholder="例如 B08N5WRWNW" required>
+              <span>ASIN 列表</span>
+              <textarea id="asins" name="asins" placeholder="每行一个 ASIN，也可以用逗号或空格分隔&#10;例如：&#10;B08N5WRWNW&#10;B07PXGQC1Q" required></textarea>
             </label>
 
-            <button id="submit-button" type="submit">
-              <span class="button-icon" aria-hidden="true">↗</span>
-              抓取信息
-            </button>
+            <div class="actions">
+              <button id="submit-button" type="submit">
+                <span class="button-icon" aria-hidden="true">↗</span>
+                批量抓取
+              </button>
+              <button id="export-button" class="secondary-button" type="button" disabled>
+                <span class="button-icon" aria-hidden="true">↓</span>
+                导出 Excel
+              </button>
+            </div>
           </form>
         </div>
 
@@ -61,35 +67,6 @@
         </section>
       </section>
     </main>
-
-    <template id="product-template">
-      <article class="product-card">
-        <div class="image-frame">
-          <img id="product-image" alt="Amazon 产品首图">
-        </div>
-        <div class="product-detail">
-          <div class="meta-row">
-            <span id="marketplace"></span>
-            <a id="product-link" target="_blank" rel="noreferrer">打开 Amazon 页面</a>
-          </div>
-          <h2 id="product-title"></h2>
-          <dl class="stats">
-            <div>
-              <dt>Rating</dt>
-              <dd id="rating"></dd>
-            </div>
-            <div>
-              <dt>评论数</dt>
-              <dd id="review-count"></dd>
-            </div>
-          </dl>
-          <div class="bullets-wrap">
-            <h3>五行</h3>
-            <ol id="bullets"></ol>
-          </div>
-        </div>
-      </article>
-    </template>
 
     <script src="/app.js"></script>
   </body>
